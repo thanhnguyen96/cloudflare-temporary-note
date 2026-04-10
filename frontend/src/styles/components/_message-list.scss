@@ -1,4 +1,4 @@
-.message-list {
+﻿.message-list {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
@@ -14,5 +14,23 @@
     align-items: center;
     justify-content: center;
   }
+
+  &__anchor {
+    height: 1px;
+  }
 }
 
+@media (max-width: 560px) {
+  .message-list {
+    max-height: min(54dvh, calc(100dvh - 300px));
+    min-height: 170px;
+    gap: 0.45rem;
+    padding-right: 0.15rem;
+
+    &__empty {
+      min-height: 90px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  }
+}

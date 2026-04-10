@@ -27,11 +27,26 @@ export function JoinRoomCard({ dictionary, onJoin }: JoinRoomCardProps): JSX.Ele
           className="join-card__input"
           autoComplete="off"
         />
-        <button type="submit" className="join-card__submit">
-          {dictionary.joinRoom}
+        <button
+          type="submit"
+          className="join-card__submit"
+          aria-label={dictionary.joinRoom}
+          title={dictionary.joinRoom}
+        >
+          <ArrowRightIcon />
         </button>
       </form>
     </section>
   );
 }
 
+function ArrowRightIcon(): JSX.Element {
+  return (
+    <svg viewBox="0 0 24 24" className="join-card__submit-icon" aria-hidden="true">
+      <path
+        d="M13.3 5.3a1 1 0 0 0-1.4 1.4l4.3 4.3H4a1 1 0 1 0 0 2h12.2l-4.3 4.3a1 1 0 0 0 1.4 1.4l6-6a1 1 0 0 0 0-1.4l-6-6Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}

@@ -1,4 +1,4 @@
-.room-chat {
+﻿.room-chat {
   margin-top: 1.25rem;
   border: 1px solid var(--line-color);
   border-radius: 1rem;
@@ -40,16 +40,59 @@
   }
 
   &__refresh-button {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid var(--line-color);
     background: var(--bg-soft);
     color: var(--text-main);
     border-radius: 0.65rem;
-    padding: 0.4rem 0.75rem;
     cursor: pointer;
+  }
+
+  &__refresh-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
   }
 
   &__refresh-button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+}
+
+@media (max-width: 560px) {
+  .room-chat {
+    margin-top: 0.65rem;
+    padding: 0.75rem;
+    border-radius: 0.85rem;
+
+    &__header {
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.65rem;
+    }
+
+    &__title {
+      font-size: 0.95rem;
+    }
+
+    &__note {
+      font-size: 0.82rem;
+      margin-top: 0.28rem;
+    }
+
+    &__refresh-button {
+      width: 34px;
+      height: 34px;
+      border-radius: 0.55rem;
+    }
+
+    &__refresh-icon {
+      width: 16px;
+      height: 16px;
+    }
   }
 }

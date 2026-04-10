@@ -1,8 +1,8 @@
 ﻿import type { Dictionary, Language } from "./types";
 
 const VI: Dictionary = {
-  appName: "note-24h",
-  roomInputPlaceholder: "Nhập tên room hoặc URL bất kỳ...",
+  appName: "Note 24h",
+  roomInputPlaceholder: "Nhập tên room",
   joinRoom: "Vào room",
   joinHint: "Dữ liệu trong room tự hết hạn sau 24 giờ.",
   roomLabel: "Room",
@@ -19,15 +19,15 @@ const VI: Dictionary = {
   theme: "Giao diện",
   light: "Sáng",
   dark: "Tối",
-  enterRoom: "Vào room 24h",
+  enterRoom: "Tạo hoặc vào room",
   textTooLong: "Nội dung quá dài.",
   fileTooLarge: "Tệp vượt quá dung lượng cho phép.",
   refresh: "Làm mới",
 };
 
 const EN: Dictionary = {
-  appName: "note-24h",
-  roomInputPlaceholder: "Enter any room text or URL...",
+  appName: "Note 24h",
+  roomInputPlaceholder: "Enter room name",
   joinRoom: "Join room",
   joinHint: "Room content expires automatically after 24 hours.",
   roomLabel: "Room",
@@ -44,7 +44,7 @@ const EN: Dictionary = {
   theme: "Theme",
   light: "Light",
   dark: "Dark",
-  enterRoom: "Enter 24h room",
+  enterRoom: "Create or join room",
   textTooLong: "Text is too long.",
   fileTooLarge: "File is too large.",
   refresh: "Refresh",

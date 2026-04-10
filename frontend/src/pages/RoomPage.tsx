@@ -52,8 +52,10 @@ export function RoomPage({ dictionary }: RoomPageProps): JSX.Element {
                 void refresh();
               }}
               disabled={loading || sending || uploading}
+              aria-label={dictionary.refresh}
+              title={dictionary.refresh}
             >
-              {dictionary.refresh}
+              <RefreshIcon />
             </button>
           </div>
           <p className="room-chat__note">{dictionary.roomNote}</p>
@@ -74,5 +76,16 @@ export function RoomPage({ dictionary }: RoomPageProps): JSX.Element {
         />
       </section>
     </main>
+  );
+}
+
+function RefreshIcon(): JSX.Element {
+  return (
+    <svg viewBox="0 0 24 24" className="room-chat__refresh-icon" aria-hidden="true">
+      <path
+        d="M12 5a7 7 0 1 1-6.7 9H3a1 1 0 0 1 0-2h3.5a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0v-.8A5 5 0 1 0 12 7c-.9 0-1.8.2-2.5.7a1 1 0 0 1-1-1.7A7 7 0 0 1 12 5Zm0-3a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1Z"
+        fill="currentColor"
+      />
+    </svg>
   );
 }

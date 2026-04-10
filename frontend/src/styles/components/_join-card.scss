@@ -1,4 +1,4 @@
-.join-card {
+﻿.join-card {
   border: 1px solid var(--line-color);
   background: var(--bg-elevated);
   border-radius: 1rem;
@@ -36,9 +36,45 @@
     background: var(--brand);
     color: var(--brand-contrast);
     border-radius: 0.75rem;
-    padding: 0.75rem 1.1rem;
-    font-weight: 700;
+    width: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+  }
+
+  &__submit-icon {
+    width: 22px;
+    height: 22px;
+    display: block;
   }
 }
 
+@media (max-width: 560px) {
+  .join-card {
+    margin-top: 0.9rem;
+    padding: 0.9rem;
+    border-radius: 0.85rem;
+
+    &__title {
+      font-size: 1.1rem;
+    }
+
+    &__hint {
+      font-size: 0.86rem;
+      margin-bottom: 0.75rem;
+    }
+
+    &__form {
+      gap: 0.55rem;
+    }
+
+    &__input {
+      padding: 0.65rem;
+    }
+
+    &__submit {
+      width: 42px;
+    }
+  }
+}
