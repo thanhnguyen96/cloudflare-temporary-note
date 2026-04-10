@@ -180,11 +180,30 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
 
   if (!response.ok) {
-    const message = await response.text();
+    const message = await extractErrorMessage(response);
     throw new Error(message || `Request failed (${response.status})`);
   }
 
   return (await response.json()) as T;
+}
+
+async function extractErrorMessage(response: Response): Promise<string> {
+  const contentType = response.headers.get("content-type") ?? "";
+
+  if (contentType.includes("application/json")) {
+    const payload = (await response.json().catch(() => null)) as
+      | { error?: string; message?: string }
+      | null;
+    if (payload?.error) {
+      return payload.error;
+    }
+    if (payload?.message) {
+      return payload.message;
+    }
+  }
+
+  const text = await response.text().catch(() => "");
+  return text.trim();
 }
 
 function mapMessage(raw: MessageDto): ChatMessage {

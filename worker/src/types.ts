@@ -1,6 +1,7 @@
 export interface Env {
   DB: D1Database;
   FILES: R2Bucket;
+  RATE_LIMITER: DurableObjectNamespace;
   ALLOWED_ORIGIN?: string;
   MAX_TEXT_LENGTH?: string;
   MAX_FILE_BYTES?: string;

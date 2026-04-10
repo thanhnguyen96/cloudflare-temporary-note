@@ -13,6 +13,14 @@ migrations_dir = "migrations"
 binding = "FILES"
 bucket_name = "note-24h-files"
 
+[[durable_objects.bindings]]
+name = "RATE_LIMITER"
+class_name = "RateLimiterDO"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RateLimiterDO"]
+
 [vars]
 ALLOWED_ORIGIN = "*"
 MAX_TEXT_LENGTH = "5000"
@@ -25,4 +33,3 @@ R2_ACCESS_KEY_ID = "REPLACE_WITH_R2_ACCESS_KEY_ID"
 
 [triggers]
 crons = ["*/30 * * * *"]
-

@@ -1,4 +1,4 @@
-import { handleFileDownload, handleUploadFile } from "./handlers/files";
+import { handleFileDownload } from "./handlers/files";
 import { handleHealth } from "./handlers/health";
 import { handleCreateMessage, handleListMessages } from "./handlers/messages";
 import {
@@ -7,7 +7,9 @@ import {
   handleStartUpload,
   handleUploadPartUrl,
 } from "./handlers/uploads";
+import { RateLimiterDO } from "./durable/RateLimiterDO";
 import { options, withCors, error } from "./lib/http";
+import { enforceRateLimit } from "./lib/rateLimit";
 import { runCleanup } from "./jobs/cleanup";
 import type { Env } from "./types";
 
@@ -35,6 +37,8 @@ export default {
   },
 };
 
+export { RateLimiterDO };
+
 async function routeRequest(
   request: Request,
   env: Env,
@@ -49,21 +53,27 @@ async function routeRequest(
   if (roomMessages) {
     const roomId = decodeURIComponent(roomMessages[1]);
     if (request.method === "GET") {
-      return handleListMessages(env, roomId);
+      const rate = await enforceRateLimit(request, env, "read");
+      if (!rate.ok) {
+        return rate.response;
+      }
+      return withHeaders(await handleListMessages(env, roomId), rate.headers);
     }
     if (request.method === "POST") {
-      return handleCreateMessage(request, env, roomId);
+      const rate = await enforceRateLimit(request, env, "write");
+      if (!rate.ok) {
+        return rate.response;
+      }
+      return withHeaders(await handleCreateMessage(request, env, roomId), rate.headers);
     }
-  }
-
-  const roomFiles = pathname.match(/^\/api\/rooms\/([^/]+)\/files$/);
-  if (roomFiles && request.method === "POST") {
-    const roomId = decodeURIComponent(roomFiles[1]);
-    return handleUploadFile(request, env, roomId);
   }
 
   if (pathname === "/api/uploads/start" && request.method === "POST") {
-    return handleStartUpload(request, env);
+    const rate = await enforceRateLimit(request, env, "write");
+    if (!rate.ok) {
+      return rate.response;
+    }
+    return withHeaders(await handleStartUpload(request, env), rate.headers);
   }
   if (pathname === "/api/uploads/part-url" && request.method === "GET") {
     return handleUploadPartUrl(url, env);
@@ -77,8 +87,15 @@ async function routeRequest(
 
   const fileDownload = pathname.match(/^\/api\/files\/([^/]+)$/);
   if (fileDownload && request.method === "GET") {
+    const rate = await enforceRateLimit(request, env, "read");
+    if (!rate.ok) {
+      return rate.response;
+    }
     const roomId = url.searchParams.get("roomId") ?? "";
-    return handleFileDownload(env, decodeURIComponent(fileDownload[1]), roomId);
+    return withHeaders(
+      await handleFileDownload(env, decodeURIComponent(fileDownload[1]), roomId),
+      rate.headers,
+    );
   }
 
   return error("Not found.", 404);
@@ -90,4 +107,12 @@ function trimTrailingSlash(pathname: string): string {
   }
 
   return pathname;
+}
+
+function withHeaders(response: Response, headers: Record<string, string>): Response {
+  const next = new Response(response.body, response);
+  for (const [key, value] of Object.entries(headers)) {
+    next.headers.set(key, value);
+  }
+  return next;
 }

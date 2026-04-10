@@ -3,13 +3,6 @@ import { sanitizeContentType, sanitizeFilename } from "../lib/format";
 import { createId } from "../lib/id";
 import type { Env, NoteDto } from "../types";
 
-export interface UploadFileLike {
-  name: string;
-  size: number;
-  type: string;
-  stream: () => ReadableStream;
-}
-
 interface NoteRow {
   id: string;
   room_id: string;
@@ -57,53 +50,6 @@ export async function createTextMessage(
     kind: "text",
     body: content,
     file: null,
-    createdAt: now,
-    expiresAt,
-  };
-}
-
-export async function createFileMessage(
-  env: Env,
-  roomId: string,
-  file: UploadFileLike,
-): Promise<NoteDto> {
-  const id = createId();
-  const now = Date.now();
-  const expiresAt = now + ONE_DAY_MS;
-  const fileName = sanitizeFilename(file.name || "upload.bin");
-  const contentType = sanitizeContentType(file.type || "application/octet-stream");
-  const objectKey = createId();
-
-  await env.FILES.put(objectKey, file.stream(), {
-    httpMetadata: {
-      contentType,
-      contentDisposition: "attachment",
-    },
-    customMetadata: {
-      roomId,
-      uploadedAt: String(now),
-      expiresAt: String(expiresAt),
-    },
-  });
-
-  await env.DB.prepare(
-    `INSERT INTO notes (id, room_id, type, body, file_key, file_size, created_at, expires_at)
-     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)`,
-  )
-    .bind(id, roomId, contentType, fileName, objectKey, file.size, now, expiresAt)
-    .run();
-
-  return {
-    id,
-    roomId,
-    kind: "file",
-    body: null,
-    file: {
-      name: fileName,
-      size: file.size,
-      contentType,
-      downloadUrl: `/api/files/${id}?roomId=${encodeURIComponent(roomId)}`,
-    },
     createdAt: now,
     expiresAt,
   };
