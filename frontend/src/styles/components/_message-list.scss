@@ -1,0 +1,18 @@
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  max-height: 52vh;
+  min-height: 200px;
+  overflow-y: auto;
+  padding-right: 0.3rem;
+
+  &__empty {
+    color: var(--text-subtle);
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+

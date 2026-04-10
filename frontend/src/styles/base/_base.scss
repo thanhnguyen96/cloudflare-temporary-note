@@ -1,0 +1,19 @@
+body {
+  font-family: var(--font-family);
+  background:
+    radial-gradient(circle at 100% 0%, rgb(98 210 162 / 20%), transparent 35%),
+    radial-gradient(circle at 0% 100%, rgb(16 115 95 / 18%), transparent 35%),
+    var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+code {
+  font-family: "Cascadia Mono", "Fira Code", monospace;
+}
+

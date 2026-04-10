@@ -1,0 +1,28 @@
+name = "note-24h"
+main = "src/worker.ts"
+compatibility_date = "2026-04-10"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "note-24h-db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "note-24h-files"
+
+[vars]
+ALLOWED_ORIGIN = "*"
+MAX_TEXT_LENGTH = "5000"
+MAX_FILE_BYTES = "1073741824"
+R2_ACCOUNT_ID = "REPLACE_WITH_CF_ACCOUNT_ID"
+R2_BUCKET_NAME = "note-24h-files"
+R2_ACCESS_KEY_ID = "REPLACE_WITH_R2_ACCESS_KEY_ID"
+# Set secret with:
+# npx wrangler secret put R2_SECRET_ACCESS_KEY
+
+[triggers]
+crons = ["*/30 * * * *"]
+

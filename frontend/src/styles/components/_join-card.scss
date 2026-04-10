@@ -1,0 +1,44 @@
+.join-card {
+  border: 1px solid var(--line-color);
+  background: var(--bg-elevated);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  padding: 1.25rem;
+  max-width: 700px;
+  margin: 2.5rem auto 0;
+
+  &__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  &__hint {
+    color: var(--text-subtle);
+    margin-bottom: 1rem;
+  }
+
+  &__form {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  &__input {
+    flex: 1;
+    background: var(--bg-soft);
+    border: 1px solid var(--line-color);
+    color: var(--text-main);
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  &__submit {
+    border: none;
+    background: var(--brand);
+    color: var(--brand-contrast);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+}
+

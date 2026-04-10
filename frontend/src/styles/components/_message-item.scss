@@ -1,0 +1,32 @@
+.message-item {
+  display: flex;
+
+  &__content {
+    border: 1px solid var(--line-color);
+    background: var(--bg-soft);
+    border-radius: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    max-width: 90%;
+  }
+
+  &__text {
+    white-space: pre-wrap;
+    line-height: 1.35;
+  }
+
+  &__meta {
+    display: block;
+    margin-top: 0.4rem;
+    color: var(--text-subtle);
+    font-size: 0.8rem;
+  }
+
+  &__file-link {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    word-break: break-all;
+  }
+}
+

@@ -1,0 +1,30 @@
+:root {
+  --font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  --bg-main: #0f1217;
+  --bg-elevated: #171b23;
+  --bg-soft: #202734;
+  --text-main: #edf2ff;
+  --text-subtle: #b7bfd6;
+  --line-color: #2f3c57;
+  --brand: #62d2a2;
+  --brand-contrast: #073022;
+  --danger: #ff7f8e;
+  --shadow-color: rgb(0 0 0 / 25%);
+}
+
+[data-theme="light"] {
+  --bg-main: #f2f7fb;
+  --bg-elevated: #ffffff;
+  --bg-soft: #e4edf5;
+  --text-main: #112235;
+  --text-subtle: #5f7388;
+  --line-color: #d3e0ec;
+  --brand: #10735f;
+  --brand-contrast: #f4fffb;
+  --danger: #cd314d;
+  --shadow-color: rgb(18 34 53 / 10%);
+}
+
+$breakpoint-tablet: 840px;
+$breakpoint-mobile: 560px;
+

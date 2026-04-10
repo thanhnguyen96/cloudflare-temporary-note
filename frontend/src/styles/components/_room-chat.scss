@@ -1,0 +1,55 @@
+.room-chat {
+  margin-top: 1.25rem;
+  border: 1px solid var(--line-color);
+  border-radius: 1rem;
+  background: var(--bg-elevated);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  padding: 1rem;
+
+  &__header {
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--line-color);
+    margin-bottom: 0.9rem;
+  }
+
+  &__header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  &__title {
+    font-size: 1.05rem;
+  }
+
+  &__note {
+    color: var(--text-subtle);
+    margin-top: 0.35rem;
+    font-size: 0.9rem;
+  }
+
+  &__loading {
+    color: var(--text-subtle);
+    margin-bottom: 0.65rem;
+  }
+
+  &__error {
+    color: var(--danger);
+    margin-bottom: 0.65rem;
+  }
+
+  &__refresh-button {
+    border: 1px solid var(--line-color);
+    background: var(--bg-soft);
+    color: var(--text-main);
+    border-radius: 0.65rem;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+  }
+
+  &__refresh-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
