@@ -26,8 +26,22 @@ export async function readJson<T>(request: Request): Promise<T | null> {
 export function withCors(response: Response, request: Request, env: Env): Response {
   const headers = new Headers(response.headers);
   const requestOrigin = request.headers.get("origin") ?? "";
-  const allowed = env.ALLOWED_ORIGIN?.trim() || "*";
-  const origin = allowed === "*" ? "*" : requestOrigin === allowed ? allowed : "";
+  const rawAllowed = env.ALLOWED_ORIGIN?.trim() || "*";
+  const allowedList = rawAllowed
+    .split(/[;,]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  const allowAll = allowedList.includes("*");
+  let origin = "*";
+
+  if (!allowAll) {
+    origin = "";
+
+    if (requestOrigin && allowedList.includes(requestOrigin)) {
+      origin = requestOrigin;
+    }
+  }
 
   if (origin) {
     headers.set("access-control-allow-origin", origin);
@@ -47,4 +61,3 @@ export function withCors(response: Response, request: Request, env: Env): Respon
 export function options(request: Request, env: Env): Response {
   return withCors(new Response(null, { status: 204 }), request, env);
 }
-
