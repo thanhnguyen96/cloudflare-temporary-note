@@ -12,7 +12,9 @@
     "build": "npm run build:frontend && npm run build:worker",
     "build:frontend": "npm --workspace frontend run build",
     "build:worker": "npm --workspace worker run build",
+    "deploy:worker": "npm --workspace worker run deploy",
+    "deploy:frontend": "npx wrangler pages deploy frontend/dist --project-name note-24h",
     "typecheck": "npm --workspace frontend run typecheck && npm --workspace worker run typecheck",
-    "deploy:all": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy-all.ps1"
+    "deploy:all": "bash ./scripts/deploy-all.sh"
   }
 }
